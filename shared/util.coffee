@@ -4,61 +4,76 @@
 ###
 Converts the specified character blocks within the given text to HTML.
 @param text: The text to convert.
-@param charMap: (optional) The map of characters to convert.
-                     If not specified, default formatting chars
-                     are used for `:code, **:strong, *:italic
+@param options:
+        - map:  (optional) The map of characters to convert.
+                 If not specified, default formatting chars
+                 are used for `:code, **:strong, *:italic
 
-                     Example:
-                      {
-                        '`': 'code'
-                        '**': 'strong'
-                      }
+                 Example:
+                  {
+                    '`': 'code'
+                    '**': 'strong'
+                  }
 
 ###
-Markdown.charsToHtml = (text, charMap = {}) ->
+Markdown.charsToHtml = (text, options = {}) ->
+  # Setup initial conditions.
   return text if Util.isBlank(text)
-
-  console.log 'text', text
-
-  # for key, value of character-map.
-  charsToHtml(text, '`', 'code')
-
-
-
-
-
-charsToHtml = (text, char, tag) ->
-  return text unless text.indexOf(char) > -1
   result = []
-  withinBlock = false
+  withinBlockChar = null
   block = null
+
+  # Set the default char/tag mappings.
+  map = options.map
 
   startBlock = ->
       block = []
       result.push(block)
   startBlock()
 
-  convertTag = ->
-      switch withinBlock
-        when true
-          block.push("</#{ tag }>")
+  toggleBlock = (char) ->
+      switch withinBlockChar?
+        when false # Open the block.
           startBlock()
-          withinBlock = false
+          block.push(char)
+          withinBlockChar = char
 
-        when false
-          startBlock()
-          block.push("<#{ tag }>")
-          withinBlock = true
-
-  for item, i in text
-    if item is char then convertTag() else block.push(item)
+        when true # Close the block.
+          block.char = char # Store char on previous block.
+          startBlock() # Start new block.
+          withinBlockChar = null
 
 
-  console.log 'result', result
-  for item in result
-    console.log 'item', item
-  console.log ''
+  isMatch = (char, index) ->
+    for key, value of map
+      if key is char
+        if withinBlockChar?
+          return true if key is withinBlockChar
+        else
+          return true
+    false
+
+  # Build the array(s) of blocks.
+  for char, i in text
+    if isMatch(char, i)
+      toggleBlock(char)
+    else
+      block.push(char)
+
+  # Reconstruct the final HTML from the array.
+  html = ''
+  for block in result
+    if char = block.char
+      text  = block.from(char.length).join('')
+      tag   = map[char]
+      text  = "<#{ tag }>#{ text }</#{ tag }>"
+    else
+      text = block.join('')
+    html += text
+
+    console.log 'block', block
 
   # Finish up.
-  result.flatten().join('')
+  html
+
 
