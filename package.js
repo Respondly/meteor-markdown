@@ -1,5 +1,5 @@
 Package.describe({
-  summary: ''
+  summary: 'Markdown services'
 });
 
 
