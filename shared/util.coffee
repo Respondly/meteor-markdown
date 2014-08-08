@@ -1,6 +1,3 @@
-
-
-
 ###
 Converts the specified character blocks within the given text to HTML.
 @param text: The text to convert.
@@ -31,6 +28,8 @@ Markdown.charsToHtml = (text, options = {}) ->
       result.push(block)
   startBlock()
 
+  getTag = (key, index) -> text.substring(index, index + key.length)
+
   toggleBlock = (char) ->
       switch withinBlockChar?
         when false # Open the block.
@@ -39,39 +38,40 @@ Markdown.charsToHtml = (text, options = {}) ->
           withinBlockChar = char
 
         when true # Close the block.
-          block.char = char # Store char on previous block.
+          block.tag = char # Store char on previous block.
           startBlock() # Start new block.
           withinBlockChar = null
 
 
-  isMatch = (char, index) ->
-    for key, value of map
-      if key is char
-        if withinBlockChar?
-          return true if key is withinBlockChar
-        else
-          return true
-    false
+  matchingTag = (index) ->
+      for key, value of map
+        tag = getTag(key, index)
+        if key is tag
+          if withinBlockChar?
+            return tag if key is withinBlockChar
+          else
+            return tag
 
-  # Build the array(s) of blocks.
-  for char, i in text
-    if isMatch(char, i)
-      toggleBlock(char)
+  # Build up the set of blocks.
+  index = 0
+  until index > text.length
+    if tag = matchingTag(index)
+      toggleBlock(tag)
+      index += tag.length
     else
-      block.push(char)
+      block.push(text[index])
+      index += 1
+
 
   # Reconstruct the final HTML from the array.
   html = ''
   for block in result
-    if char = block.char
-      text  = block.from(char.length).join('')
-      tag   = map[char]
-      text  = "<#{ tag }>#{ text }</#{ tag }>"
+    if tag = block.tag
+      text  = block.from(1).join('')
+      text  = "<#{ map[tag] }>#{ text }</#{ map[tag] }>"
     else
       text = block.join('')
     html += text
-
-    console.log 'block', block
 
   # Finish up.
   html
