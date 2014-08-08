@@ -22,6 +22,12 @@ Markdown.charsToHtml = (text, options = {}) ->
 
   # Set the default char/tag mappings.
   map = options.map
+  unless map
+    map =
+      '`':  'code'
+      '**': 'strong'
+      '*':  'u'
+
 
   startBlock = ->
       block = []
@@ -61,7 +67,6 @@ Markdown.charsToHtml = (text, options = {}) ->
     else
       block.push(text[index])
       index += 1
-
 
   # Reconstruct the final HTML from the array.
   html = ''

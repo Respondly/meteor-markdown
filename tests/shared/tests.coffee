@@ -38,3 +38,8 @@ describe 'charsToHtml', ->
     chars = {'**':'strong'}
     html = Markdown.charsToHtml('one **two**three', { map:chars })
     expect(html).to.equal 'one <strong>two</strong>three'
+
+
+  it 'converts with default char-map', ->
+    html = Markdown.charsToHtml('`one` *two* **three**')
+    expect(html).to.equal '<code>one</code> <u>two</u> <strong>three</strong>'
