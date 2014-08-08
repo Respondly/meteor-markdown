@@ -29,7 +29,7 @@ describe 'charsToHtml', ->
   it 'does not convert cross tags', ->
     chars =
       '`': 'code'
-      '*': 'strong'
+      '*': 'i'
     html = Markdown.charsToHtml('one `two *three`', { map:chars })
     expect(html).to.equal 'one <code>two *three</code>'
 
@@ -42,4 +42,4 @@ describe 'charsToHtml', ->
 
   it 'converts with default char-map', ->
     html = Markdown.charsToHtml('`one` *two* **three**')
-    expect(html).to.equal '<code>one</code> <u>two</u> <strong>three</strong>'
+    expect(html).to.equal '<code>one</code> <i>two</i> <strong>three</strong>'

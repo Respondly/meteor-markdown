@@ -26,7 +26,7 @@ Markdown.charsToHtml = (text, options = {}) ->
     map =
       '`':  'code'
       '**': 'strong'
-      '*':  'u'
+      '*':  'i'
 
 
   startBlock = ->
