@@ -1,32 +1,48 @@
+Markdown.server = server = {}
+
+
 ###
-Converts the specified character blocks within the given text to HTML.
-@param text: The text to convert.
+Converts the given string of markdown to HTML on the server.
+@param text: A string of markdown.
 @param options:
-        - map:  (optional) The map of characters to convert.
-                 If not specified, default formatting chars
-                 are used for `:code, **:strong, *:italic
+          - within: The root tag to wrap content within.
+                    For example "p" or "div".
+                    Default:nothing (not wrapped)
+@param callback(err, html)
+###
+server.toHtml = (text, options = {}, callback) ->
+  if Object.isFunction(options)
+    callback = options
+    options  = {}
+  Meteor.call 'pkg/markdown/toHtml', text, options, (err, html) -> callback?(err, html)
 
-                 Example:
-                  {
-                    '`': 'code'
-                    '**': 'strong'
-                  }
+
+
 
 ###
-Markdown.charsToHtml = (text, options = {}) ->
+Performs basic markdown formatting on the client.
+@param markdown: A string of markdown with formatting:
+                  - `code`
+                  - *italic*
+                  - **bold**
+@param options:
+          - within: The root tag to wrap content within.
+                    For example "p" or "div".
+                    Default:nothing (not wrapped)
+###
+Markdown.toHtml = (text, options = {}) ->
   # Setup initial conditions.
-  return text if Util.isBlank(text)
-  result = []
+  return '' if Util.isBlank(text)
+  within = options.within
   withinBlockChar = null
   block = null
+  result = []
 
   # Set the default char/tag mappings.
-  map = options.map
-  unless map
-    map =
-      '`':  'code'
-      '**': 'strong'
-      '*':  'i'
+  map =
+    '`':  'code'
+    '**': 'strong'
+    '*':  'em'
 
 
   startBlock = ->
@@ -79,6 +95,7 @@ Markdown.charsToHtml = (text, options = {}) ->
     html += text
 
   # Finish up.
+  html = "<#{ within }>#{ html }</#{ within }>" if within?
   html
 
 

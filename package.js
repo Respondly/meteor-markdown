@@ -3,6 +3,11 @@ Package.describe({
 });
 
 
+Npm.depends({
+  'marked': '0.3.1'
+});
+
+
 
 Package.on_use(function (api) {
   api.use(['coffeescript', 'sugar', 'http']);
@@ -10,8 +15,9 @@ Package.on_use(function (api) {
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.add_files('shared/ns.js', ['client', 'server']);
-  api.add_files('shared/util.coffee', ['client', 'server']);
+  api.add_files('shared/ns.coffee', ['client', 'server']);
+  api.add_files('server/server.coffee', 'server');
+  api.add_files('client/client.coffee', 'client');
 
 });
 
@@ -23,6 +29,7 @@ Package.on_test(function (api) {
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('tests/shared/_init.coffee', ['client', 'server']);
-  api.add_files('tests/shared/tests.coffee', ['client', 'server']);
+  api.add_files('tests/server/server.coffee', 'server');
+  api.add_files('tests/client/client.coffee', 'client');
 
 });
