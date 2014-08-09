@@ -5,6 +5,11 @@ describe 'toHtml (client)', ->
     expect(Markdown.toHtml('')).to.equal ''
     expect(Markdown.toHtml('   ')).to.equal ''
 
+  it 'does not convert non-string values', ->
+    expect(Markdown.toHtml(true)).to.equal ''
+    expect(Markdown.toHtml(1234)).to.equal ''
+    expect(Markdown.toHtml({})).to.equal ''
+
 
   it 'converts "`" to "<code>"', ->
     html = Markdown.toHtml('one `two`three')

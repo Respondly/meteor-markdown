@@ -32,6 +32,7 @@ Performs basic markdown formatting on the client.
 ###
 Markdown.toHtml = (text, options = {}) ->
   # Setup initial conditions.
+  return '' unless Object.isString(text)
   return '' if Util.isBlank(text)
   within = options.within
   withinBlockChar = null
