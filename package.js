@@ -20,8 +20,9 @@ Package.on_use(function (api) {
   api.add_files('server/build-index.coffee', 'server');
   api.add_files('server/server.coffee', 'server');
   api.add_files('server/server.methods.coffee', 'server');
+  api.add_files('client/css/github-markdown.css', 'client');
+  api.add_files('client/css/overrides.styl', 'client');
   api.add_files('client/client.coffee', 'client');
-  api.add_files('client/css.styl', 'client');
   api.add_files('client/files.coffee', 'client');
 
 });
