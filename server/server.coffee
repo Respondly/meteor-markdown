@@ -33,14 +33,3 @@ Markdown.toHtml = (text, options = {}) ->
   html
 
 
-
-# ----------------------------------------------------------------------
-
-
-
-Meteor.methods
-  'pkg/markdown/toHtml': (text, options) ->
-    check(text, String)
-    check(options, Match.OneOf(undefined, {}, { within:String }))
-    Markdown.toHtml(text, options)
-

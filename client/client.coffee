@@ -14,7 +14,7 @@ server.toHtml = (text, options = {}, callback) ->
   if Object.isFunction(options)
     callback = options
     options  = {}
-  Meteor.call 'pkg/markdown/toHtml', text, options, (err, html) -> callback?(err, html)
+  Meteor.call 'packages/markdown/toHtml', text, options, (err, html) -> callback?(err, html)
 
 
 
