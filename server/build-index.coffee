@@ -5,6 +5,7 @@ ASSETS_PATH = INTERNAL.ASSETS_PATH = fs.realpathSync('.') + '/assets'
 getFiles = (rootPath) ->
     result = []
     walk = (path) ->
+        return unless fs.existsSync(path)
         for item in fs.readdirSync(path)
           item = "#{ path }/#{ item }"
           stats = fs.statSync(item)
