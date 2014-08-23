@@ -1,4 +1,7 @@
 //= base
+Markdown = {}
+
+
 
 /*
 PACAKGE LEVEL Scope.

@@ -1,4 +1,28 @@
-Markdown = {}
+###
+Markdown parsing:
+
+  https://github.com/chjj/marked
+
+
+Code Highlighting:
+
+  https://highlightjs.org/
+  https://github.com/isagalaev/highlight.js
+
+
+###
+
+marked    = Npm.require('marked')
+highlight = Npm.require('highlight.js')
+
+
+
+marked.setOptions
+  highlight: (code) ->
+    highlight.highlightAuto(code).value
+
+
+# ----------------------------------------------------------------------
 
 
 ###
@@ -16,7 +40,7 @@ Markdown.toHtml = (text, options = {}) ->
   within = options.within
 
   # Convert to HTML.
-  html = Npm.require('marked')(text)
+  html = marked(text)
 
   # Post process the HTML.
   html = html.remove /\n$/
