@@ -7,7 +7,9 @@ hash = new ReactiveHash()
 fileObject = (path) ->
   result =
     isLoaded: false
-    html: -> hash.get(path)
+    html: ->
+      @load() if not @isLoaded
+      hash.get(path)
 
     load: (callback) ->
       return if @isLoading
