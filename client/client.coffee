@@ -44,7 +44,12 @@ Markdown.toHtml = (text, options = {}) ->
     '`':  'code'
     '**': 'strong'
     '*':  'em'
-
+    "'":
+      open:  '‘'
+      close: '’'
+    '"':
+      open:  '“'
+      close: '”'
 
   startBlock = ->
       block = []
@@ -90,7 +95,14 @@ Markdown.toHtml = (text, options = {}) ->
   for block in result
     if tag = block.tag
       text  = block.from(1).join('')
-      text  = "<#{ map[tag] }>#{ text }</#{ map[tag] }>"
+
+      mapTo = map[tag]
+
+      if Object.isObject(mapTo)
+        text = "#{ mapTo.open }#{ text }#{ mapTo.close }"
+
+      else
+        text  = "<#{ mapTo }>#{ text }</#{ mapTo }>"
     else
       text = block.join('')
     html += text

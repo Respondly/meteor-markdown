@@ -11,6 +11,9 @@
     "npm": {},
     "util": {
       "path": "../util"
+    },
+    "css-stylus": {
+      "path": "../css-stylus"
     }
   }
 }

@@ -32,7 +32,6 @@ describe 'toHtml (client)', ->
 
 
   it 'converts "**" to "<strong>"', ->
-    chars = {'**':'strong'}
     html = Markdown.toHtml('one **two**three')
     expect(html).to.equal 'one <strong>two</strong>three'
 
@@ -46,6 +45,12 @@ describe 'toHtml (client)', ->
     expect(html).to.equal '<p><code>one</code> <em>two</em> <strong>three</strong></p>'
 
 
+  it 'converts double-quotes', ->
+    html = Markdown.toHtml('foo "bar" "baz')
+    expect(html).to.equal 'foo “bar” "baz'
+
+
+# ----------------------------------------------------------------------
 
 
 describe 'toHtml (client => server)', ->
