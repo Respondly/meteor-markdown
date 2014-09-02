@@ -11,7 +11,7 @@ Npm.depends({
 
 
 Package.on_use(function (api) {
-  api.use(['coffeescript', 'sugar', 'http', 'npm']);
+  api.use(['coffeescript', 'http', 'npm']);
   api.use(['util', 'css-stylus']);
   api.export('Markdown');
 
