@@ -1,5 +1,33 @@
+#= require ./parse
+
 fs = Npm.require('fs')
 ASSETS_PATH = INTERNAL.ASSETS_PATH = fs.realpathSync('.') + '/assets'
+
+
+
+
+getFirstTag = (html, tag) ->
+  # Look for the first occurance of the specified tag.
+  regex = new RegExp("<#{ tag }.*?>.*?</#{ tag }>", 'g')
+  match = html.match(regex)
+  if result = match?[0]
+    # Extract innerHTML.
+    result = result.substr(result.indexOf('>') + 1, result.length)
+    result = result.remove(new RegExp("</#{ tag }>"))
+    result
+
+
+
+
+
+toFileObject = (fullPath) ->
+  html = Markdown.loadFile(fullPath)
+  file =
+    path: fullPath.substring(ASSETS_PATH.length, fullPath.length)
+    title: getFirstTag(html, 'h1')
+
+
+
 
 
 getFiles = (rootPath) ->
@@ -7,16 +35,15 @@ getFiles = (rootPath) ->
     walk = (path) ->
         return unless fs.existsSync(path)
         for item in fs.readdirSync(path)
-          item = "#{ path }/#{ item }"
-          stats = fs.statSync(item)
+          fullPath = "#{ path }/#{ item }"
+          stats = fs.statSync(fullPath)
 
           if stats.isDirectory()
-            walk(item) # <== RECURSION.
+            walk(fullPath) # <== RECURSION.
 
           else if stats.isFile()
-            if item.endsWith('.md')
-              item = item.substring(ASSETS_PATH.length, item.length)
-              result.push(item)
+            if fullPath.endsWith('.md')
+              result.push(toFileObject(fullPath))
 
     walk(rootPath)
     result
@@ -25,8 +52,9 @@ getFiles = (rootPath) ->
 # Retrieves [.md] files.
 appPaths     = getFiles("#{ ASSETS_PATH }/app")
 packagePaths = getFiles("#{ ASSETS_PATH }/packages")
-paths        = [appPaths, packagePaths].flatten()
+files        = [appPaths, packagePaths].flatten()
+
 
 # Store on client.
-ClientSettings.set({ markdownPaths:paths })
+ClientSettings.set({ markdownFiles:files })
 

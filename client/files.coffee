@@ -1,12 +1,14 @@
-paths = ClientSettings.get().markdownPaths
 Markdown.files = files = {}
 hash = new ReactiveHash()
 
 
 
-fileObject = (path) ->
+toFileObject = (file) ->
+  path = file.path
+
   result =
     isLoaded: false
+    title: file.title
     html: ->
       @load() if not @isLoaded
       hash.get(path)
@@ -24,13 +26,7 @@ fileObject = (path) ->
           callback?(err, result)
 
 
-for path in paths
-  files[path] = fileObject(path)
-
-
-
-
-
-
+for file in ClientSettings.get().markdownFiles
+  files[file.path] = toFileObject(file)
 
 
