@@ -1,7 +1,7 @@
 #= require ./parse
 
 fs = Npm.require('fs')
-ASSETS_PATH = INTERNAL.ASSETS_PATH = fs.realpathSync('.') + '/assets'
+ASSETS_PATH = PKG.ASSETS_PATH = fs.realpathSync('.') + '/assets'
 
 
 

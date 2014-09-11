@@ -8,4 +8,4 @@ Meteor.methods
 
   'packages/markdown/loadFile': (path) ->
     check(path, String)
-    Markdown.loadFile(INTERNAL.ASSETS_PATH + path)
+    Markdown.loadFile(PKG.ASSETS_PATH + path)
