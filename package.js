@@ -1,5 +1,8 @@
 Package.describe({
-  summary: 'Markdown services'
+  name: 'respondly:markdown',
+  summary: 'Markdown services',
+  version: '0.0.1',
+  git: 'https://github.com/Respondly/meteor-markdown.git'
 });
 
 
@@ -12,8 +15,9 @@ Npm.depends({
 
 
 Package.on_use(function (api) {
-  api.use(['coffeescript', 'http', 'npm']);
-  api.use(['util', 'css-stylus']);
+  api.use(['coffeescript', 'http']);
+  api.use('meteorhacks:npm');
+  api.use(['respondly:util', 'respondly:css-stylus']);
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -33,8 +37,8 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['munit', 'coffeescript', 'chai']);
-  api.use('markdown');
+  api.use(['mike:mocha-package@0.4.7', 'coffeescript']);
+  api.use('respondly:markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('tests/shared/_init.coffee', ['client', 'server']);
