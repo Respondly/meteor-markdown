@@ -14,36 +14,36 @@ Npm.depends({
 
 
 
-Package.on_use(function (api) {
+Package.onUse(function (api) {
   api.use(['coffeescript', 'http']);
   api.use('meteorhacks:npm');
   api.use(['respondly:util', 'respondly:css-stylus']);
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.add_files('shared/ns.coffee', ['client', 'server']);
-  api.add_files('server/ns.js', 'server');
-  api.add_files('server/parse.coffee', 'server');
-  api.add_files('server/build-index.coffee', 'server');
-  api.add_files('server/server.methods.coffee', 'server');
-  api.add_files('client/css/github-markdown.css', 'client');
-  api.add_files('client/css/highlight-github.css', 'client');
-  api.add_files('client/css/overrides.styl', 'client');
-  api.add_files('client/client.coffee', 'client');
-  api.add_files('client/files.coffee', 'client');
+  api.addFiles('shared/ns.coffee', ['client', 'server']);
+  api.addFiles('server/ns.js', 'server');
+  api.addFiles('server/parse.coffee', 'server');
+  api.addFiles('server/build-index.coffee', 'server');
+  api.addFiles('server/server.methods.coffee', 'server');
+  api.addFiles('client/css/github-markdown.css', 'client');
+  api.addFiles('client/css/highlight-github.css', 'client');
+  api.addFiles('client/css/overrides.styl', 'client');
+  api.addFiles('client/client.coffee', 'client');
+  api.addFiles('client/files.coffee', 'client');
 
 });
 
 
 
-Package.on_test(function (api) {
+Package.onTest(function (api) {
   api.use(['mike:mocha-package@0.4.7', 'coffeescript']);
   api.use('respondly:markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.add_files('tests/shared/_init.coffee', ['client', 'server']);
-  api.add_files('tests/server/server.coffee', 'server');
-  api.add_files('tests/client/client.coffee', 'client');
+  api.addFiles('tests/shared/_init.coffee', ['client', 'server']);
+  api.addFiles('tests/server/server.coffee', 'server');
+  api.addFiles('tests/client/client.coffee', 'client');
 
 });
 
