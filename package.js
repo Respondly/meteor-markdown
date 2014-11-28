@@ -15,9 +15,11 @@ Npm.depends({
 
 
 Package.onUse(function (api) {
+  api.versionsFrom('1.0');
   api.use(['coffeescript', 'http']);
   api.use('meteorhacks:npm');
-  api.use(['respondly:util', 'respondly:css-stylus']);
+  api.use('respondly:util');
+  api.use('respondly:css-stylus');
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
