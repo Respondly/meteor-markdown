@@ -1,7 +1,7 @@
 Package.describe({
   name: 'respondly:markdown',
   summary: 'Markdown services',
-  version: '0.0.1',
+  version: '1.0.0',
   git: 'https://github.com/Respondly/meteor-markdown.git'
 });
 
@@ -17,9 +17,9 @@ Npm.depends({
 Package.onUse(function (api) {
   api.versionsFrom('1.0');
   api.use(['coffeescript', 'http']);
-  api.use('meteorhacks:npm');
-  api.use('respondly:util');
-  api.use('respondly:css-stylus');
+  api.use('meteorhacks:npm@1.2.1');
+  api.use('respondly:util@1.0.0');
+  api.use('respondly:css-stylus@1.0.0');
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
