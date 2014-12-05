@@ -15,7 +15,7 @@ Npm.depends({
 
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.0');
+  // api.versionsFrom('1.0');
   api.use(['coffeescript', 'http']);
   api.use('meteorhacks:async@1.0.0');
   api.use('respondly:util@1.0.1');
