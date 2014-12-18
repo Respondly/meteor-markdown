@@ -1,5 +1,8 @@
 Package.describe({
-  summary: 'Markdown services'
+  name: 'respondly:markdown',
+  summary: 'Markdown services',
+  version: '1.0.0',
+  git: 'https://github.com/Respondly/meteor-markdown.git'
 });
 
 
@@ -11,35 +14,38 @@ Npm.depends({
 
 
 
-Package.on_use(function (api) {
-  api.use(['coffeescript', 'http', 'npm']);
-  api.use(['util', 'css-stylus']);
+Package.onUse(function (api) {
+  // api.versionsFrom('1.0');
+  api.use(['coffeescript', 'http']);
+  api.use('meteorhacks:async@1.0.0');
+  api.use('respondly:util@1.0.1');
+  api.use('respondly:css-stylus@1.0.3');
   api.export('Markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.add_files('shared/ns.coffee', ['client', 'server']);
-  api.add_files('server/ns.js', 'server');
-  api.add_files('server/parse.coffee', 'server');
-  api.add_files('server/build-index.coffee', 'server');
-  api.add_files('server/server.methods.coffee', 'server');
-  api.add_files('client/css/github-markdown.css', 'client');
-  api.add_files('client/css/highlight-github.css', 'client');
-  api.add_files('client/css/overrides.styl', 'client');
-  api.add_files('client/client.coffee', 'client');
-  api.add_files('client/files.coffee', 'client');
+  api.addFiles('shared/ns.coffee', ['client', 'server']);
+  api.addFiles('server/ns.js', 'server');
+  api.addFiles('server/parse.coffee', 'server');
+  api.addFiles('server/build-index.coffee', 'server');
+  api.addFiles('server/server.methods.coffee', 'server');
+  api.addFiles('client/css/github-markdown.css', 'client');
+  api.addFiles('client/css/highlight-github.css', 'client');
+  api.addFiles('client/css/overrides.styl', 'client');
+  api.addFiles('client/client.coffee', 'client');
+  api.addFiles('client/files.coffee', 'client');
 
 });
 
 
 
-Package.on_test(function (api) {
-  api.use(['munit', 'coffeescript', 'chai']);
-  api.use('markdown');
+Package.onTest(function (api) {
+  api.use(['mike:mocha-package@0.4.7', 'coffeescript']);
+  api.use('respondly:markdown');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.add_files('tests/shared/_init.coffee', ['client', 'server']);
-  api.add_files('tests/server/server.coffee', 'server');
-  api.add_files('tests/client/client.coffee', 'client');
+  api.addFiles('tests/shared/_init.coffee', ['client', 'server']);
+  api.addFiles('tests/server/server.coffee', 'server');
+  api.addFiles('tests/client/client.coffee', 'client');
 
 });
 
