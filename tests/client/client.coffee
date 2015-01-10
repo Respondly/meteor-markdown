@@ -57,16 +57,14 @@ describe 'toHtml (client => server)', ->
   it 'convert HTML to string', (done) ->
     markdown = '`one` two'
     Markdown.server.toHtml markdown, (err, html) =>
-      @try ->
-        expect(html).to.equal '<code>one</code> two'
+      expect(html).to.equal '<code>one</code> two'
       done()
 
 
   it 'convert HTML to string within a root <p>', (done) ->
     markdown = '`one` two'
     Markdown.server.toHtml markdown, { within:'p' }, (err, html) =>
-      @try ->
-        expect(html).to.equal '<p><code>one</code> two</p>'
+      expect(html).to.equal '<p><code>one</code> two</p>'
       done()
 
 
