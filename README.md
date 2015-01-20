@@ -1,6 +1,7 @@
 # Markdown
 Markdown services
 
+[![Circle CI](https://circleci.com/gh/Respondly/meteor-markdown.svg?style=svg)](https://circleci.com/gh/Respondly/meteor-markdown)
 
 ## Installation
 When running for the first time:
