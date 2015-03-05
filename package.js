@@ -39,7 +39,7 @@ Package.onUse(function (api) {
 
 Package.onTest(function (api) {
   api.use('respondly:markdown');
-  api.use(['coffeescript', 'mike:mocha-package@0.4.7']);
+  api.use(['coffeescript', 'mike:mocha-package@0.5.6']);
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('tests/shared/_init.coffee', ['client', 'server']);
