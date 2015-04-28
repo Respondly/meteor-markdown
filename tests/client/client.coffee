@@ -57,6 +57,7 @@ describe 'toHtml (client => server)', ->
   it 'convert HTML to string', (done) ->
     markdown = '`one` two'
     Markdown.server.toHtml markdown, (err, html) =>
+      done(err) if err
       expect(html).to.equal '<code>one</code> two'
       done()
 
@@ -66,5 +67,3 @@ describe 'toHtml (client => server)', ->
     Markdown.server.toHtml markdown, { within:'p' }, (err, html) =>
       expect(html).to.equal '<p><code>one</code> two</p>'
       done()
-
-
